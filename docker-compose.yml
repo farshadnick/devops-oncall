@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: oncall-db
+    environment:
+      POSTGRES_USER: oncall
+      POSTGRES_PASSWORD: oncall
+      POSTGRES_DB: oncall
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - oncall-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oncall"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: oncall-backend
+    environment:
+      DATABASE_URL: postgresql://oncall:oncall@db:5432/oncall
+      SECRET_KEY: your-secret-key-change-in-production-$(openssl rand -hex 32)
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - oncall-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: oncall-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - oncall-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  oncall-network:
+    driver: bridge
+

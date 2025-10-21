@@ -1,0 +1,102 @@
+.current-oncall-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: white;
+}
+
+.banner-icon {
+  font-size: 80px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.banner-content h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.oncall-name {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.oncall-period {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.oncall-notes {
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-active {
+  background: #48bb78;
+  color: white;
+}
+
+.status-upcoming {
+  background: #4299e1;
+  color: white;
+}
+
+.status-past {
+  background: #cbd5e0;
+  color: #4a5568;
+}
+
+.active-row {
+  background: #f0fff4 !important;
+  font-weight: 500;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+@media (max-width: 768px) {
+  .current-oncall-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .banner-icon {
+    font-size: 60px;
+  }
+
+  .oncall-name {
+    font-size: 28px;
+  }
+
+  .oncall-period {
+    font-size: 14px;
+  }
+}
+
