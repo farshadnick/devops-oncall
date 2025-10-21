@@ -39,7 +39,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     
-    oncall_assignments = relationship("OnCallSchedule", back_populates="user")
+    oncall_assignments = relationship("OnCallSchedule", back_populates="user", foreign_keys="[OnCallSchedule.user_id]")
 
 class OnCallSchedule(Base):
     __tablename__ = "oncall_schedules"
