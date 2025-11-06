@@ -23,7 +23,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 # Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+#pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["bcrypt_sha256"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Database Models
@@ -184,7 +185,7 @@ def startup():
         admin = db.query(User).filter(User.username == "admin").first()
         if not admin:
             admin = User(
-                email="admin@oncall.local",
+                email="admin@oncall.devops",
                 username="admin",
                 full_name="System Administrator",
                 hashed_password=get_password_hash("admin123"),
